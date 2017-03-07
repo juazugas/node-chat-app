@@ -21,9 +21,10 @@ io.on('connection', (socket) => {
 
   socket.broadcast.emit('newMessage', generateMessage('Chatbot','New user joined'));
 
-  socket.on('createMessage', (data) => {
+  socket.on('createMessage', (data, callback) => {
     console.log('createMessage:', data);
     io.emit('newMessage', generateMessage(data.from, data.text));
+    callback('This is from the server');
     /*socket.broadcast.emit('newMessage', {
       from: data.from,
       text: data.text,

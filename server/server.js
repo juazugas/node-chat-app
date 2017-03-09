@@ -25,11 +25,11 @@ io.on('connection', (socket) => {
     console.log('createMessage:', data);
     io.emit('newMessage', generateMessage(data.from, data.text));
     callback('This is from the server');
-    /*socket.broadcast.emit('newMessage', {
-      from: data.from,
-      text: data.text,
-      createdAt: new Date().getTime()
-    });*/
+  });
+
+  socket.on('createLocationMessage', (coords) => {
+    console.log('createLocationMessage:', coords);
+    io.emit('newMessage', generateMessage('Chatbot', `${coords.latitude} ${coords.longitude}`));
   });
 
   socket.on('disconnect', (socket) => {

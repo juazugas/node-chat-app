@@ -9,10 +9,29 @@
     console.log('disconnected from server');
   });
 
+  function getHtmlDateMessage(createdAt) {
+
+    var momentTime = moment(createdAt);
+    var relTime = momentTime.fromNow();
+    var formattedTime = momentTime.format('h:mm a');
+
+    var small = jQuery('<small></small>');
+    small.text(formattedTime+' ');
+    var italic = jQuery('<i></i>');
+    italic.text(relTime);
+    italic.appendTo(small);
+    small.append('<br/>');
+
+    return small;
+  }
+
   socket.on('newMessage', function(message) {
     console.log('new message', message);
+
     var li = jQuery('<li></li>');
+
     li.text(message.from + ': ' + message.text);
+    li.prepend(getHtmlDateMessage(message.createdAt));
 
     jQuery('#messages').append(li);
   });
@@ -23,6 +42,7 @@
     li.text(message.from + ': ');
     a.attr('href', message.url);
     li.append(a);
+    li.prepend(getHtmlDateMessage(message.createdAt));
 
     jQuery('#messages').append(li);
   });

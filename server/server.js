@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
+const {isRealString} = require('./utils/validation');
 const {generateMessage, generateLocationMessage} = require('./utils/message');
 
 const publicPath = path.join(__dirname, '../public');
@@ -20,6 +21,14 @@ io.on('connection', (socket) => {
   socket.emit('newMessage', generateMessage('Chatbot', 'Welcome to the chat app'));
 
   socket.broadcast.emit('newMessage', generateMessage('Chatbot','New user joined'));
+
+  socket.on('join', (params, callback) => {
+    if (!isRealString(params.name) || !isRealString(params.room)) {
+      return callback('Name and Room name are required.');
+    }
+
+    callback();
+  });
 
   socket.on('createMessage', (data, callback) => {
     console.log('createMessage:', data);

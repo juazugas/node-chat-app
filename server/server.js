@@ -38,22 +38,27 @@ io.on('connection', (socket) => {
   });
 
   socket.on('createMessage', (data, callback) => {
-    console.log('createMessage:', data);
-    io.emit('newMessage', generateMessage(data.from, data.text));
+    let user = users.getUser(socket.id);
+    if (user && isRealString(data.text)) {
+      console.log('createMessage:', data, user);
+      io.to(user.room).emit('newMessage', generateMessage(user.name, data.text));
+    }
     callback('This is from the server');
   });
 
   socket.on('createLocationMessage', (coords, callback) => {
-    console.log('createLocationMessage:', coords);
-    io.emit('newLocationMessage', generateLocationMessage('Chatbot', coords.latitude, coords.longitude));
+    let user = users.getUser(socket.id);
+    if (user) {
+      console.log('createLocationMessage:', coords, user);
+      io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
+    }
     callback('This is location from the server');
   });
 
   socket.on('disconnect', () => {
-    var user = users.removeUser(socket.id);
+    let user = users.removeUser(socket.id);
     if (user) {
       console.log(`User ${user.name}\\${socket.id} disconnected from ${user.room}`);
-      console.log(users.getUsersList(user.room));
       io.to(user.room).emit('updateUsersList', users.getUsersList(user.room));
       io.to(user.room).emit('newMessage', generateMessage('Chatbot', `${user.name} has left.`));
     }

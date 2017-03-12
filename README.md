@@ -5,6 +5,10 @@ Chat application with Socket.io
 
 - [x] Normalize room names to lowercase.
 - [x] Mark current user in Users list.
-- [ ] Make user's name as unique per room.
+- [x] Make user's name as unique per room.
+
+### Todo features
+
 - [ ] Show active rooms in login form.
+- [ ] Make rooms private (not showing in the list).
 

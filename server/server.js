@@ -25,7 +25,13 @@ io.on('connection', (socket) => {
       return callback('Name and Room name are required.');
     }
 
-    var room = params.room.toLowerCase()
+    let room = params.room.toLowerCase()
+
+    let userList = users.getUsersList(room);
+    if (userList.includes(params.name)) {
+      return callback(`Name ${params.name} yet used in Room.`);
+    }
+
     socket.join(room)
     users.removeUser(socket.id);
     users.addUser(socket.id, params.name, room);

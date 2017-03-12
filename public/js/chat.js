@@ -36,10 +36,12 @@
   });
 
   socket.on('updateUsersList', function (users) {
+    var params = jQuery.deparam(window.location.search);
     console.log('Users list', users);
     var ol = jQuery('<ol></ol>');
     users.forEach(function(user) {
-      ol.append(jQuery('<li></li>').text(user));
+      var className = (params.name && params.name === user) ? 'active' : '';
+      ol.append(jQuery('<li></li>').addClass(className).text(user));
     });
 
     jQuery('#users').html(ol);

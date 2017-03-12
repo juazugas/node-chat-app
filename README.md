@@ -1,10 +1,10 @@
 # node-chat-app
 Chat application with Socket.io
 
-### TODO features
+### Extra features
 
 - [x] Normalize room names to lowercase.
-- [ ] Mark active user in Users list.
+- [x] Mark current user in Users list.
 - [ ] Make user's name as unique per room.
 - [ ] Show active rooms in login form.
 

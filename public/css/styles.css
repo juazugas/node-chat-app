@@ -1,5 +1,5 @@
-/** 
- * styles.css 
+/**
+ * styles.css
  * @see https://gist.github.com/andrewjmead/4783dec59ba2d1e5bcf3e1c301c5858d
  */
 * {
@@ -9,6 +9,10 @@
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: .95rem;
+}
+
+small *,small{
+  font-size:smaller;
 }
 
 ul, li {
@@ -115,6 +119,13 @@ button:disabled {
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
+  list-style-type: none;
+}
+
+.chat__sidebar li.active {
+  background: #17aa1c;
+  border-color: #17aa1c;
+  color: white;
 }
 
 .chat__main {

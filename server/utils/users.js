@@ -20,7 +20,7 @@ class Users {
   removeUser(id) {
     let user = this.getUser(id);
     if (user) {
-      this.users = this.users.filter((user) => user.id !== id);
+      this.users = this.users.filter((luser) => luser.id !== id);
     }
     return user;
   }

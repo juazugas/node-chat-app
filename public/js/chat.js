@@ -35,6 +35,16 @@
     console.log('disconnected from server');
   });
 
+  socket.on('updateUsersList', function (users) {
+    console.log('Users list', users);
+    var ol = jQuery('<ol></ol>');
+    users.forEach(function(user) {
+      ol.append(jQuery('<li></li>').text(user));
+    });
+
+    jQuery('#users').html(ol);
+  });
+
   socket.on('newMessage', function(message) {
     var momentTime = moment(message.createdAt);
     var relTime = momentTime.fromNow();
